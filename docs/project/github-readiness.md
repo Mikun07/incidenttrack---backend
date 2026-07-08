@@ -70,8 +70,8 @@ Add frontend topics after the frontend exists.
 | Changelog | Done | `backend/CHANGELOG.md` added |
 | Security policy | Done | `backend/SECURITY.md` added |
 | Contribution guide | Done | `backend/CONTRIBUTING.md` added |
-| Tests | Missing | Add before public release |
-| CI | Missing | Add GitHub Actions |
+| Tests | Partial | Health check smoke test exists; add service and authorization tests before public release |
+| CI | Done | GitHub Actions workflow added |
 | Deployment docs | Partial | Backend operations doc exists |
 | Live demo link | Not applicable yet | Add after deployment |
 | Screenshots | Not applicable yet | Add after frontend |
@@ -83,12 +83,11 @@ Add frontend topics after the frontend exists.
 
 Before sharing publicly:
 
-1. Add backend tests.
-2. Add CI for build, test, and audit.
-3. Run a secret scan.
-4. Confirm no `.env` files are committed.
-5. Confirm the README setup path works from a fresh clone.
-6. Add frontend docs or clearly state that the frontend is not implemented yet.
+1. Add broader backend tests for services, authorization, and validation.
+2. Run a secret scan.
+3. Confirm no `.env` files are committed.
+4. Confirm the README setup path works from a fresh clone.
+5. Add frontend docs or clearly state that the frontend is not implemented yet.
 
 ## Known Limitations to Disclose
 
@@ -97,12 +96,12 @@ Current limitations:
 - Frontend is not implemented yet.
 - Docker Desktop must be running for local PostgreSQL.
 - No production deployment exists yet.
-- No automated tests exist yet.
-- No CI pipeline exists yet.
+- Automated test coverage is limited.
+- CI and release workflows require the GitHub repository before they can run.
 - Rate limiting and refresh tokens are not implemented yet.
 
 ## GitHub Readiness Assessment
 
-The repository is not ready for public portfolio publishing yet. It is ready for continued development and private review.
+The repository is close to public portfolio publishing readiness once GitHub authentication is restored and the remote repository is created.
 
-The next readiness milestone is backend test coverage plus CI.
+The next readiness milestone is broader backend test coverage plus a successful first GitHub Actions run.

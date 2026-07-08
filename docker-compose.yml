@@ -4,19 +4,18 @@ services:
     container_name: incidenttrack-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: incidenttrack
-      POSTGRES_PASSWORD: incidenttrack_dev_password
-      POSTGRES_DB: incidenttrack
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB is required}
     ports:
       - "5432:5432"
     volumes:
       - incidenttrack_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U incidenttrack -d incidenttrack"]
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
       interval: 10s
       timeout: 5s
       retries: 5
 
 volumes:
   incidenttrack_postgres_data:
-

@@ -1,18 +1,23 @@
 {
   "name": "incidenttrack-backend",
   "version": "0.1.0",
+  "description": "Backend API for tracking service incidents, postmortems, action items, and audit history.",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:seed": "tsx prisma/seed.ts",
     "prisma:studio": "prisma studio",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:ci": "vitest run",
+    "test:watch": "vitest",
+    "docker:build": "docker build -t incidenttrack-backend:local .",
+    "docker:run": "docker run --env-file .env -p 4000:4000 incidenttrack-backend:local",
+    "release:check": "npm run prisma:generate && npm run build && npm run test:ci && npm audit --audit-level=high"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

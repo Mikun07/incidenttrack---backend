@@ -24,6 +24,9 @@ Required variables:
 NODE_ENV
 PORT
 DATABASE_URL
+POSTGRES_USER
+POSTGRES_PASSWORD
+POSTGRES_DB
 JWT_SECRET
 JWT_EXPIRES_IN
 SEED_ADMIN_PASSWORD
@@ -92,8 +95,7 @@ Current risks:
 - Docker Desktop must be running before local database commands work.
 - The API does not yet expose structured metrics.
 - Logs are currently written to stdout and stderr.
-- There is no CI pipeline yet.
+- CI and release workflows require a published GitHub repository before they can run.
 - Backups are not configured for local or hosted PostgreSQL.
 
 These are acceptable for the initial backend foundation but should be addressed before deployment.
-

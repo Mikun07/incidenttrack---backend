@@ -12,7 +12,6 @@ Not implemented yet:
 
 - Frontend application
 - End-to-end integration tests
-- CI pipeline
 - Production deployment
 
 ## Stack
@@ -44,6 +43,8 @@ The first backend version supports:
 backend/
   .gitattributes
   .gitignore
+  .dockerignore
+  Dockerfile
   CHANGELOG.md
   CONTRIBUTING.md
   docker-compose.yml
@@ -86,7 +87,9 @@ npm install
 cp .env.example .env
 ```
 
-3. Set `SEED_ADMIN_PASSWORD` in `.env` to a local admin password with at least 12 characters.
+3. Set `POSTGRES_PASSWORD`, `DATABASE_URL`, `JWT_SECRET`, and `SEED_ADMIN_PASSWORD` in `.env`.
+
+Use the same Postgres password in `POSTGRES_PASSWORD` and `DATABASE_URL`. Set `SEED_ADMIN_PASSWORD` to a local admin password with at least 12 characters.
 
 4. Start PostgreSQL:
 
@@ -130,6 +133,20 @@ Set `SEED_ADMIN_PASSWORD` in `.env` before running the seed script. Use at least
 - Authentication: JWT bearer token
 - Database: PostgreSQL through Prisma
 - Local database: `docker-compose.yml`
+- Local package build: `npm run docker:build`
+- Release check: `npm run release:check`
+
+## Release and Package
+
+The backend is packaged as a Docker image, not as a public npm package.
+
+The intended package registry is:
+
+```text
+ghcr.io/mikun07/incidenttrack-backend
+```
+
+Release tags use the format `v0.1.0`. See [Release and Packages](docs/release-and-packages.md).
 
 ## Project Planning Documentation
 
@@ -149,6 +166,7 @@ Set `SEED_ADMIN_PASSWORD` in `.env` before running the seed script. Use at least
 - [Security Model](docs/security-model.md)
 - [Quality and Testing Strategy](docs/quality-and-testing.md)
 - [Operations Guide](docs/operations.md)
+- [Release and Packages](docs/release-and-packages.md)
 - [Architecture Decision Record: Modular Monolith](docs/adr/0001-modular-monolith.md)
 
 ## Repository Governance
@@ -168,8 +186,8 @@ A root-level project README or docs folder can be recreated later if a frontend 
 
 - Frontend is not implemented yet.
 - Docker Desktop must be running for local PostgreSQL.
-- Automated tests are not implemented yet.
-- CI pipeline is not implemented yet.
+- Automated test coverage is currently limited to a health check smoke test.
+- CI and release workflows require a published GitHub repository before they can run.
 - Production deployment is not configured yet.
 - Rate limiting and refresh tokens are not implemented yet.
 
