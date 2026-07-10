@@ -70,8 +70,8 @@ Add frontend topics after the frontend exists.
 | Changelog | Done | `backend/CHANGELOG.md` added |
 | Security policy | Done | `backend/SECURITY.md` added |
 | Contribution guide | Done | `backend/CONTRIBUTING.md` added |
-| Tests | Partial | Health check smoke test exists; add service and authorization tests before public release |
-| CI | Done | GitHub Actions workflow added |
+| Tests | Partial | Integration coverage exists for health, auth, RBAC, services, incidents, postmortems, and action items |
+| CI | Done | GitHub Actions workflow runs build, tests, and audit |
 | Deployment docs | Partial | Backend operations doc exists |
 | Live demo link | Not applicable yet | Add after deployment |
 | Screenshots | Not applicable yet | Add after frontend |
@@ -83,11 +83,10 @@ Add frontend topics after the frontend exists.
 
 Before sharing publicly:
 
-1. Add broader backend tests for services, authorization, and validation.
-2. Run a secret scan.
-3. Confirm no `.env` files are committed.
-4. Confirm the README setup path works from a fresh clone.
-5. Add frontend docs or clearly state that the frontend is not implemented yet.
+1. Run a secret scan.
+2. Confirm no `.env` files are committed.
+3. Confirm the README setup path works from a fresh clone.
+4. Add frontend docs or clearly state that the frontend is not implemented yet.
 
 ## Known Limitations to Disclose
 
@@ -96,12 +95,11 @@ Current limitations:
 - Frontend is not implemented yet.
 - Docker Desktop must be running for local PostgreSQL.
 - No production deployment exists yet.
-- Automated test coverage is limited.
-- CI and release workflows require the GitHub repository before they can run.
+- Automated test coverage is integration-heavy but still missing load and security-focused tests.
 - Rate limiting and refresh tokens are not implemented yet.
 
 ## GitHub Readiness Assessment
 
-The repository is close to public portfolio publishing readiness once GitHub authentication is restored and the remote repository is created.
+The backend repository is public portfolio ready as an API foundation, with clear disclosure that the frontend and production deployment are not implemented yet.
 
-The next readiness milestone is broader backend test coverage plus a successful first GitHub Actions run.
+The next readiness milestone is production deployment planning plus frontend implementation.

@@ -6,7 +6,7 @@ let createApp: typeof createAppFactory;
 
 beforeAll(async () => {
   process.env.NODE_ENV = "test";
-  process.env.DATABASE_URL ??= "postgresql://localhost:5432/incidenttrack?schema=public";
+  process.env.DATABASE_URL ??= "postgresql://localhost:5432/incidenttrack_test?schema=public";
   process.env.JWT_SECRET ??= "incidenttrack-test-jwt-secret-with-at-least-32-chars";
 
   ({ createApp } = await import("../src/app.js"));

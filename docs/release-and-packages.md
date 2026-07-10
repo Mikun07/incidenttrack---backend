@@ -49,6 +49,8 @@ Run the release check before creating a tag:
 npm run release:check
 ```
 
+For local runs, PostgreSQL must be running and `.env.test` must point at the dedicated `incidenttrack_test` database. The CI and release workflows create their own Postgres service container.
+
 The release check:
 
 - Generates the Prisma client.
@@ -100,13 +102,15 @@ The `Release` GitHub Actions workflow runs when the tag is pushed. It builds and
 
 The `CI` workflow runs on pushes and pull requests to `main`.
 
-It verifies:
+It starts a `postgres:16-alpine` service container so the test suite has a real database to run against, then verifies:
 
 - Dependency installation.
 - Prisma client generation.
 - TypeScript build.
-- Test command execution.
+- Test command execution against the service database.
 - High-severity dependency audit.
+
+The `Release` workflow's verify job runs the same Postgres service for the same reason, since `npm run release:check` runs the full test suite.
 
 ## Current Release Notes
 

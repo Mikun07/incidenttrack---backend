@@ -6,7 +6,18 @@ This backend follows semantic versioning.
 
 ## Unreleased
 
-No unreleased changes yet.
+### Added
+
+- Integration test suite covering authentication, role-based authorization, the incident status state machine, and postmortem and action item workflows, run with Vitest and Supertest against a real PostgreSQL test database.
+- `GET /health/ready` readiness endpoint that verifies database connectivity separately from the existing liveness check.
+- `CORS_ORIGIN` environment variable to restrict cross-origin requests to an explicit allowlist; required in production.
+- Postgres service containers in the CI and release GitHub Actions workflows so the test suite has a real database to run against.
+
+### Changed
+
+- CORS no longer reflects the caller's origin (`origin: true`); it now checks against an explicit allowlist.
+- Bumped `actions/checkout` and `actions/setup-node` to v5 in both workflows.
+- Replaced Docker JavaScript actions in the release workflow with Docker CLI commands to avoid Node runtime deprecation warnings.
 
 ## 0.1.0 - 2026-07-08
 

@@ -18,7 +18,7 @@ docker compose down
 
 ## Environment Variables
 
-Required variables:
+Runtime variables:
 
 ```text
 NODE_ENV
@@ -30,7 +30,10 @@ POSTGRES_DB
 JWT_SECRET
 JWT_EXPIRES_IN
 SEED_ADMIN_PASSWORD
+CORS_ORIGIN
 ```
+
+`DATABASE_URL` and `JWT_SECRET` are required in every environment. `CORS_ORIGIN` is optional in `development` and `test` and defaults to common local frontend ports. It is required when `NODE_ENV=production`; startup fails without it.
 
 Use `.env.example` as the template.
 
@@ -80,21 +83,27 @@ Start compiled server:
 npm start
 ```
 
-## Health Check
+## Health Checks
 
 ```http
 GET /health
 ```
 
-The health endpoint currently verifies that the API process is running. A future production readiness endpoint should also verify database connectivity.
+Liveness check. Confirms the API process is running and responding. Does not touch the database, so it stays cheap enough to poll frequently.
+
+```http
+GET /health/ready
+```
+
+Readiness check. Runs `SELECT 1` through Prisma to confirm the database is reachable. Returns `200` with `"database": "connected"` when healthy, or `503` with `"database": "unreachable"` when the database cannot be reached. Use this endpoint for deployment health gates and orchestrator readiness probes.
 
 ## Operational Risks
 
 Current risks:
 
 - Docker Desktop must be running before local database commands work.
-- The API does not yet expose structured metrics.
-- Logs are currently written to stdout and stderr.
+- The API does not yet expose structured metrics or request tracing.
+- Logs are currently written to stdout and stderr without structured fields or correlation IDs.
 - CI and release workflows require a published GitHub repository before they can run.
 - Backups are not configured for local or hosted PostgreSQL.
 

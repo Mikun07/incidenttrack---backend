@@ -63,6 +63,12 @@ Audit logs are created for sensitive operations:
 
 Audit logs support accountability and incident investigation.
 
+## Cross-Origin Resource Sharing
+
+The API restricts cross-origin requests to an explicit allowlist rather than reflecting the caller's origin.
+
+`CORS_ORIGIN` accepts a comma-separated list of allowed origins. In `development` and `test`, the API falls back to common local frontend ports (`http://localhost:5173`, `http://localhost:3000`) when the variable is unset. In `production`, `CORS_ORIGIN` is required and startup fails if it is missing, so the API cannot accidentally deploy with an open cross-origin policy.
+
 ## Current Security Gaps
 
 The current backend foundation does not yet include:
@@ -73,7 +79,5 @@ The current backend foundation does not yet include:
 - Email verification.
 - Multi-factor authentication.
 - CSRF protections for cookie-based auth.
-- Dependency scanning in CI.
 
 These should be added before a production release.
-

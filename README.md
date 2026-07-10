@@ -11,8 +11,8 @@ Current status: backend and database foundation implemented.
 Not implemented yet:
 
 - Frontend application
-- End-to-end integration tests
 - Production deployment
+- Structured logging and request correlation IDs
 
 ## Stack
 
@@ -41,6 +41,12 @@ The first backend version supports:
 
 ```text
 backend/
+  .env.example
+  .env.test.example
+  .github/
+    workflows/
+      ci.yml
+      release.yml
   .gitattributes
   .gitignore
   .dockerignore
@@ -68,6 +74,9 @@ backend/
       incidents/
       postmortems/
       audit/
+  tests/
+    helpers/
+  vitest.config.ts
   docs/
     project/
     adr/
@@ -117,6 +126,32 @@ npm run dev
 
 The API runs on `http://localhost:4000` by default.
 
+## Running Tests
+
+Tests run against a real PostgreSQL database, not mocks. They use a separate `incidenttrack_test` database so they never touch local development data.
+
+1. Create the test database (once):
+
+```bash
+docker exec incidenttrack-postgres createdb -U incidenttrack incidenttrack_test
+```
+
+2. Copy the test environment example:
+
+```bash
+cp .env.test.example .env.test
+```
+
+3. Set the test `DATABASE_URL` password to match your local Postgres password and confirm it points at `incidenttrack_test`.
+
+4. Run the suite:
+
+```bash
+npm test
+```
+
+The test suite applies the Prisma schema to the test database automatically before running.
+
 ## Default Seed User
 
 The seed script creates an admin user using:
@@ -129,6 +164,7 @@ Set `SEED_ADMIN_PASSWORD` in `.env` before running the seed script. Use at least
 ## API and Operations
 
 - Health check: `GET /health`
+- Readiness check: `GET /health/ready`
 - API base path: `/api`
 - Authentication: JWT bearer token
 - Database: PostgreSQL through Prisma
@@ -186,10 +222,9 @@ A root-level project README or docs folder can be recreated later if a frontend 
 
 - Frontend is not implemented yet.
 - Docker Desktop must be running for local PostgreSQL.
-- Automated test coverage is currently limited to a health check smoke test.
-- CI and release workflows require a published GitHub repository before they can run.
 - Production deployment is not configured yet.
 - Rate limiting and refresh tokens are not implemented yet.
+- No structured logging or request correlation IDs yet.
 
 ## License
 
