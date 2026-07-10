@@ -4,13 +4,14 @@ IncidentTrack is a full-stack incident management platform for tracking service 
 
 This folder currently contains the backend API, database schema, migrations, seed script, repository governance files, and all project documentation.
 
+Frontend repository: [incidenttrack-frontend](https://github.com/Mikun07/incidenttrack-frontend)
+
 ## Project Status
 
-Current status: backend and database foundation implemented.
+Current status: backend, database, and frontend implemented.
 
 Not implemented yet:
 
-- Frontend application
 - Production deployment
 - Structured logging and request correlation IDs
 
@@ -214,13 +215,10 @@ Release tags use the format `v0.1.0`. See [Release and Packages](docs/release-an
 
 ## Repository Strategy
 
-The current project keeps backend implementation, backend documentation, and project planning documentation inside the `backend` folder because the backend is the only implemented application.
-
-A root-level project README or docs folder can be recreated later if a frontend is added and the repository becomes a true full-stack monorepo.
+The backend and frontend are published as separate repositories, [incidenttrack---backend](https://github.com/Mikun07/incidenttrack---backend) and [incidenttrack-frontend](https://github.com/Mikun07/incidenttrack-frontend). Backend implementation, backend documentation, and project planning documentation live inside this repository; frontend implementation and frontend documentation live in the frontend repository.
 
 ## Known Limitations
 
-- Frontend is not implemented yet.
 - Docker Desktop must be running for local PostgreSQL.
 - Production deployment is not configured yet.
 - Rate limiting and refresh tokens are not implemented yet.
