@@ -15,6 +15,7 @@
     "test": "vitest run",
     "test:ci": "vitest run",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "docker:build": "docker build -t incidenttrack-backend:local .",
     "docker:run": "docker run --env-file .env -p 4000:4000 incidenttrack-backend:local",
     "release:check": "npm run prisma:generate && npm run build && npm run test:ci && npm audit --audit-level=high"
@@ -36,6 +37,7 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.2",
     "@types/supertest": "^7.2.0",
+    "@vitest/coverage-v8": "^4.1.10",
     "prisma": "^5.22.0",
     "supertest": "^7.0.0",
     "tsx": "^4.19.2",
